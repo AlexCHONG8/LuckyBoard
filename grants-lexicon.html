@@ -54,6 +54,10 @@ body{--s:1}
   border-radius:6px;overflow:hidden;
   box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px var(--rule);
 }
+/* CSS-native fallback: correct scale even if JS never runs */
+@supports (width: calc(1px * round(1, 1))) {
+  .stage{transform:scale(min(100vw / 1920px, 100vh / 1080px))}
+}
 .viewport{
   position:absolute;inset:0;overflow-x:auto;overflow-y:hidden;
   scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
@@ -350,7 +354,7 @@ tbody tr:hover td{background:rgba(255,255,255,.015)}
         </div>
         <div class="cover-meta">
           <div><b>Pilot scope</b><br>EFB strand board · 60,000 m³/yr · Sarawak</div>
-          <div><b>Owner</b><br>BD · Charles Wong</div>
+          <div><b>Owner</b><br>Founder - Charles, Partner - Alex</div>
           <div><b>Companion</b><br>grant-watch.html · 6 firecrawl monitors</div>
           <div><b>Status</b><br>Pre-FID · grant filing window Q4 2026 – Q1 2027</div>
         </div>
