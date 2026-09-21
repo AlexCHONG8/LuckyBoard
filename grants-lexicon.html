@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lucky Board — Grant & Carbon Finance Lexicon</title>
+<meta name="description" content="Standalone taxonomy of federal grants, tax incentives, carbon monetisation, sustainable finance, international donor funds and Sarawak state instruments for the Lucky Board 60,000 m³/yr EFB pilot.">
+<style>
+/* ============================================================
+   Lucky Board palette
+   ============================================================ */
+:root{
+  --bg:#0B1221;
+  --surface:#131B2E;
+  --surface2:#172241;
+  --gold:#C9A84C;
+  --gold-soft:#E5C876;
+  --green:#00BFA5;
+  --green-soft:#5DEAD3;
+  --red:#FF5252;
+  --ink:#E5E9F0;
+  --ink2:#9AA3B2;
+  --ink3:#6B7488;
+  --rule:#1F2940;
+  --rule2:#2A3550;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:22px;line-height:1.45;letter-spacing:.005em;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body{overflow:hidden;}
+a{color:var(--green-soft);text-decoration:none;border-bottom:1px dotted rgba(93,234,211,.35)}
+a:hover{border-bottom-color:var(--green-soft)}
+ul{list-style:none}
+h1,h2,h3,h4{font-weight:600;letter-spacing:-.01em}
+h1.title{font-size:92px;line-height:1.04;font-weight:700;letter-spacing:-.025em}
+h2.section-title{font-size:52px;line-height:1.1;font-weight:600;letter-spacing:-.018em}
+h3.subhead{font-size:28px;font-weight:600;letter-spacing:-.01em}
+h4.subtle{font-size:22px;font-weight:500;color:var(--ink2)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:0}
+.eyebrow{font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.tag{font-size:16px;letter-spacing:.06em;color:var(--ink2);text-transform:uppercase;font-weight:500}
+body{--s:1}
+/* ============================================================
+   Stage + horizontal scroll
+   ============================================================ */
+.stage-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1200px 800px at 70% 0%,#15203A 0%,var(--bg) 60%)}
+.stage{
+  --s:1;width:1920px;height:1080px;transform:scale(var(--s));transform-origin:center center;
+  position:relative;background:var(--bg);
+  border-radius:6px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px var(--rule);
+}
+.viewport{
+  position:absolute;inset:0;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  display:flex;flex-direction:row;align-items:stretch;
+}
+.viewport::-webkit-scrollbar{display:none}
+.slide{
+  position:relative;flex:0 0 1920px;height:1080px;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  padding:64px 96px 96px 96px;display:flex;flex-direction:column;
+  background:var(--bg);
+}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 80% -10%,rgba(201,168,76,.06),transparent 60%),
+    radial-gradient(700px 500px at 0% 110%,rgba(0,191,165,.05),transparent 60%);
+}
+.slide>*{position:relative;z-index:1}
+.slide-fill{flex:1;display:flex;flex-direction:column;min-height:0}
+.row{display:flex;gap:24px;min-height:0}
+.col{display:flex;flex-direction:column;min-height:0}
+.flex-1{flex:1;min-height:0}
+.gap-2{gap:24px}.gap-3{gap:32px}.gap-4{gap:48px}
+/* ============================================================
+   Top chrome (cover & content)
+   ============================================================ */
+.chrome-top{
+  position:absolute;left:0;right:0;top:0;height:48px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 32px;font-size:18px;color:var(--ink3);letter-spacing:.04em;
+  border-bottom:1px solid var(--rule);z-index:10;
+}
+.chrome-top .left,.chrome-top .right{display:flex;align-items:center;gap:14px}
+.chrome-top .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.chrome-top .progress{height:2px;background:var(--rule);flex:1;margin:0 24px;position:relative;max-width:520px}
+.chrome-top .progress span{position:absolute;left:0;top:0;bottom:0;background:var(--gold);width:var(--p,0%);transition:width .25s ease}
+.progress-track{position:absolute;left:0;right:0;top:0;height:3px;background:var(--rule);z-index:12}
+.progress-track span{position:absolute;left:0;top:0;bottom:0;background:var(--gold);width:var(--p,0%);transition:width .2s ease}
+.chrome-bottom{
+  position:absolute;left:0;right:0;bottom:0;height:48px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 32px;font-size:18px;color:var(--ink3);letter-spacing:.04em;
+  border-top:1px solid var(--rule);background:rgba(11,18,33,.65);z-index:10;
+}
+.chrome-bottom .pgnum{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:17px;color:var(--ink2)}
+.chrome-bottom .label{color:var(--ink2)}
+/* Arrow buttons (bottom corners) */
+.arrow{
+  position:absolute;bottom:18px;width:50px;height:50px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--rule2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:var(--ink);cursor:pointer;
+  transition:transform .15s ease,background .15s ease,border-color .15s ease;
+  z-index:14;user-select:none;
+}
+.arrow:hover{background:var(--surface2);border-color:var(--gold)}
+.arrow:active{transform:scale(.95)}
+.arrow.prev{left:24px}
+.arrow.next{right:24px}
+.arrow.first{left:80px}
+.arrow.last{right:80px}
+@media (max-width:820px),(max-height:500px){
+  .arrow.first,.arrow.last{display:none}
+}
+/* Dot strip */
+.dots{
+  position:absolute;left:0;right:0;bottom:60px;display:flex;justify-content:center;
+  gap:10px;z-index:12;flex-wrap:wrap;padding:0 120px;
+}
+.dots button{
+  width:14px;height:14px;border-radius:50%;border:1px solid var(--rule2);
+  background:var(--surface);cursor:pointer;padding:0;
+  transition:transform .15s ease,background .15s ease,border-color .15s ease;
+}
+.dots button.active{background:var(--gold);border-color:var(--gold);transform:scale(1.25)}
+.dots button:hover:not(.active){background:var(--surface2);border-color:var(--gold)}
+@media (max-width:820px),(max-height:500px){.dots{display:none}}
+/* ============================================================
+   Page-specific
+   ============================================================ */
+.cover{flex:1;display:flex;flex-direction:column;justify-content:space-between;
+  padding:0 24px 24px 24px}
+.cover-title{font-size:96px;line-height:1.04;font-weight:700;letter-spacing:-.028em;
+  max-width:1600px;color:var(--ink)}
+.cover-title .accent{color:var(--gold)}
+.cover-sub{font-size:30px;color:var(--ink2);max-width:1300px;margin-top:24px;line-height:1.4}
+.cover-meta{display:flex;gap:64px;font-size:18px;color:var(--ink3);
+  margin-top:auto;padding-top:24px;border-top:1px solid var(--rule)}
+.cover-meta b{color:var(--ink);font-weight:500}
+.cover-badge{display:inline-block;padding:8px 16px;border:1px solid var(--gold);color:var(--gold);
+  font-size:18px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;margin-bottom:24px}
+.section-header{margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.section-header .left .eyebrow{margin-bottom:12px}
+.section-header h2{max-width:1200px}
+.section-header .right{font-size:18px;color:var(--ink2);text-align:right;max-width:380px}
+/* KPI grid */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.kpi{
+  background:var(--surface);border:1px solid var(--rule);
+  border-radius:6px;padding:28px 28px 24px;display:flex;flex-direction:column;
+}
+.kpi .label{font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:16px}
+.kpi .value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:64px;font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--gold)}
+.kpi .value .unit{font-size:28px;color:var(--ink2);margin-left:6px;font-weight:400}
+.kpi .desc{margin-top:14px;font-size:20px;color:var(--ink2);line-height:1.45}
+.kpi .src{margin-top:18px;font-size:17px;color:var(--ink3);letter-spacing:.04em;text-transform:uppercase}
+.kpi.green .value{color:var(--green-soft)}
+.kpi.green .label{color:var(--green-soft)}
+/* Tables */
+.tbl-wrap{flex:1;min-height:0;overflow:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:20px}
+thead th{
+  background:var(--surface2);color:var(--gold);font-weight:500;
+  text-transform:uppercase;letter-spacing:.06em;font-size:17px;
+  text-align:left;padding:18px 20px;border-bottom:1px solid var(--rule);
+  position:sticky;top:0;z-index:1;
+}
+thead th.num{text-align:right}
+tbody td{padding:18px 20px;border-bottom:1px solid var(--rule);color:var(--ink);vertical-align:top}
+tbody td.num{text-align:right;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:19px;color:var(--ink);white-space:nowrap}
+tbody td.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--gold);font-size:19px;white-space:nowrap;width:64px}
+tbody td.fit{width:80px;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(255,255,255,.015)}
+.fit-badge{display:inline-block;padding:4px 10px;border-radius:4px;font-size:17px;font-weight:500;
+  letter-spacing:.04em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;min-width:48px;text-align:center}
+.fit-1,.fit-2{background:rgba(255,82,82,.15);color:var(--red)}
+.fit-3{background:rgba(201,168,76,.18);color:var(--gold-soft)}
+.fit-4,.fit-5{background:rgba(0,191,165,.18);color:var(--green-soft)}
+/* §A table compact (10 rows must fit one slide) */
+[data-slide="3"] table{font-size:18px;line-height:1.35}
+[data-slide="3"] tbody td{padding:9px 16px}
+[data-slide="3"] thead th{padding:10px 16px}
+[data-slide="3"] .banner-strip{margin-bottom:14px;padding:8px 0}
+[data-slide="3"] .takeaway{margin-top:12px}
+/* Section divider banner on each content page */
+.banner-strip{
+  display:flex;align-items:center;gap:16px;padding:12px 0;
+  border-bottom:1px solid var(--rule);margin-bottom:24px;
+}
+.banner-strip .pill{padding:6px 14px;border:1px solid var(--gold);border-radius:4px;color:var(--gold);
+  font-size:17px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.banner-strip .text{font-size:19px;color:var(--ink2)}
+/* Priority stack */
+.priority-stack{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.priority-stack .row2{display:flex;gap:16px;align-items:flex-start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:18px 22px}
+.priority-stack .num{font-size:34px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--gold);line-height:1;min-width:36px}
+.priority-stack .body{flex:1}
+.priority-stack .title{font-size:22px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.priority-stack .detail{font-size:19px;color:var(--ink2);line-height:1.4}
+/* Summary grid */
+.sum-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.sum-card{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:24px 26px}
+.sum-card .head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:14px}
+.sum-card .src{font-size:19px;color:var(--gold-soft);font-weight:500;min-width:0;overflow-wrap:break-word}
+.sum-card .amt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:30px;color:var(--green-soft);text-align:right;font-weight:600;white-space:nowrap}
+.sum-card .stg{font-size:18px;color:var(--ink2);margin-bottom:6px}
+.sum-card .owner{font-size:18px;color:var(--ink3)}
+.sum-total{
+  grid-column:1/-1;background:var(--surface2);
+  border:1px solid var(--gold);border-radius:6px;padding:28px 32px;
+  display:flex;justify-content:space-between;align-items:center;margin-top:12px;
+}
+.sum-total .left .label{font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.sum-total .left .big{font-size:46px;font-weight:600;color:var(--ink);margin-top:6px;letter-spacing:-.018em;line-height:1.1}
+.sum-total .left .small{font-size:20px;color:var(--ink2);margin-top:6px}
+.sum-total .right{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:36px;color:var(--gold);text-align:right}
+/* Carbon revenue callout */
+.carbon-callout{
+  background:linear-gradient(180deg,rgba(0,191,165,.08),rgba(0,191,165,0));
+  border:1px solid var(--green);border-radius:6px;padding:24px 28px;margin-top:20px;
+}
+.carbon-callout .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.carbon-callout .head .label{font-size:18px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-soft)}
+.carbon-callout .head .val{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:40px;color:var(--green-soft);font-weight:600}
+.carbon-callout .formula{font-size:19px;color:var(--ink2);line-height:1.55}
+.carbon-callout .formula b{color:var(--ink);font-weight:500}
+/* Checklist */
+.checklist{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.check{display:flex;align-items:flex-start;gap:18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:6px;padding:18px 22px}
+.check .box{
+  width:28px;height:28px;border:1px solid var(--gold);border-radius:4px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:18px;
+}
+.check .body{flex:1}
+.check .title{font-size:22px;color:var(--ink);font-weight:500;margin-bottom:4px}
+.check .detail{font-size:19px;color:var(--ink2);line-height:1.4}
+.check .owner{font-size:17px;color:var(--ink3);margin-top:6px;letter-spacing:.04em;text-transform:uppercase}
+/* Monitor table */
+.monitor-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--gold-soft);font-size:17px;white-space:nowrap}
+.monitor-url{font-size:17px;color:var(--ink2);word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.monitor-sources{font-size:18px;color:var(--ink2)}
+.monitor-sources code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--gold-soft);background:var(--bg);
+  padding:2px 6px;border-radius:3px;font-size:16px;margin-right:6px}
+/* Two-column helper */
+.split-60-40{display:grid;grid-template-columns:60fr 40fr;gap:32px;flex:1;min-height:0}
+.split-50-50{display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1;min-height:0}
+.split-40-60{display:grid;grid-template-columns:40fr 60fr;gap:32px;flex:1;min-height:0}
+/* Stat block */
+.stat-row{display:flex;gap:32px;margin-top:18px}
+.stat{flex:1;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:18px 22px}
+.stat .label{font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.stat .val{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:30px;font-weight:600;color:var(--gold)}
+/* Source legend */
+.legend{display:flex;gap:24px;flex-wrap:wrap;font-size:17px;color:var(--ink2)}
+.legend .item{display:flex;align-items:center;gap:8px}
+.legend .swatch{width:18px;height:18px;border-radius:3px;border:1px solid var(--rule)}
+/* Tip / takeaway box */
+.takeaway{
+  background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.4);
+  border-radius:6px;padding:18px 22px;margin-top:16px;
+  font-size:19px;color:var(--ink);line-height:1.5;
+}
+.takeaway b{color:var(--gold);font-weight:500}
+/* Print */
+@media print{
+  .chrome-top,.chrome-bottom,.arrow,.dots,.progress-track{display:none!important}
+  body{overflow:visible;background:#fff;color:#1A1A1A}
+  .stage-wrap{position:static;display:block;background:#fff;height:auto}
+  .stage{transform:none;width:auto;height:auto;box-shadow:none;border-radius:0;
+    border:1px solid #999;page-break-after:always;margin:0}
+  .viewport{position:static;overflow:visible;display:block;height:auto}
+  .slide{page-break-inside:avoid;height:auto;min-height:1080px;padding:48px 56px;background:#fff;color:#1A1A1A}
+  .slide::before{display:none}
+  .slide *{color:#1A1A1A!important}
+  table{font-size:11px}
+  thead th{background:#EEE;color:#1A1A1A!important}
+  tbody td{border-bottom:1px solid #DDD}
+  .kpi,.sum-card,.check,.priority-stack .row2,.stat,.carbon-callout,.tbl-wrap,.monitor-id,
+  .monitor-url,.monitor-sources code,.fit-badge{background:#F7F7F7!important;color:#1A1A1A!important;border-color:#CCC!important}
+  .fit-badge{color:#1A1A1A!important}
+  h1,h2,h3,h4{color:#1A1A1A!important}
+  .cover-title .accent{color:#1A1A1A!important}
+}
+/* Mobile / narrow-window reading mode: stack pages vertically, width-fill */
+@media (max-width:820px),(max-height:500px){
+  body{overflow:auto}
+  .stage-wrap{position:static;display:block;background:var(--bg);height:auto}
+  .stage{
+    width:100%;height:auto;transform:none;
+    box-shadow:none;border-radius:0;border:none;display:block;
+  }
+  .viewport{position:static;overflow:visible;display:block;height:auto;scroll-snap-type:none}
+  .slide{
+    width:100%;height:auto;min-height:0;max-width:none;flex:none;box-sizing:border-box;
+    scroll-snap-align:none;padding:40px 20px 64px 20px;display:flex;flex-direction:column;
+    border-bottom:1px solid var(--rule);
+  }
+  .chrome-top{position:static;height:auto;padding:10px 20px;flex-wrap:wrap;gap:8px}
+  .chrome-bottom{position:static;height:auto;padding:10px 20px;flex-wrap:wrap;gap:8px}
+  .arrow.first,.arrow.last{display:none}
+  .arrow{position:fixed;bottom:20px;width:46px;height:46px;font-size:20px}
+  .arrow.prev{left:12px}.arrow.next{right:12px}
+  .progress-track{position:fixed}
+  .dots{display:none!important}
+  .cover-title{font-size:clamp(38px,10vw,64px)!important;max-width:100%!important}
+  .cover-sub{font-size:22px;max-width:100%!important}
+  .cover-meta{flex-wrap:wrap;gap:20px}
+  .section-header{flex-direction:column;align-items:flex-start;gap:8px}
+  .section-header .right{text-align:left;max-width:100%}
+  .kpi-grid{grid-template-columns:1fr}
+  .sum-grid{grid-template-columns:1fr}
+  .row{flex-direction:column}
+  .tbl-wrap{overflow-x:auto}
+  table{min-width:860px}
+  [data-slide="3"] table{min-width:860px}
+  .takeaway{margin-top:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="stage-wrap">
+<div class="stage" id="stage">
+  <div class="progress-track"><span id="progressBar"></span></div>
+
+  <div class="viewport" id="viewport">
+
+    <!-- ================== 1. COVER ================== -->
+    <section class="slide" data-slide="1" data-label="Cover">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · BD / Grants & Carbon Finance</span></div>
+        <div class="right"><span>Last updated 2026-09-21</span></div>
+      </div>
+      <div class="cover" style="padding-top:80px">
+        <div>
+          <span class="cover-badge">Standalone Lexicon · EN</span>
+          <h1 class="cover-title">Grant &amp; <span class="accent">Carbon Finance</span><br>Taxonomy for the<br>Lucky Board Pilot</h1>
+          <p class="cover-sub">A single-page-by-page map of every federal grant, tax incentive, carbon monetisation pathway, sustainable finance instrument, international donor programme and Sarawak state instrument that could accelerate the 60,000 m³/yr EFB strand-board pilot — with owner, deadline and priority stack on every row.</p>
+        </div>
+        <div class="cover-meta">
+          <div><b>Pilot scope</b><br>EFB strand board · 60,000 m³/yr · Sarawak</div>
+          <div><b>Owner</b><br>BD · Charles Wong</div>
+          <div><b>Companion</b><br>grant-watch.html · 6 firecrawl monitors</div>
+          <div><b>Status</b><br>Pre-FID · grant filing window Q4 2026 – Q1 2027</div>
+        </div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">1 / 11</span>
+        <span class="label">Use ← → · Home / End · F · or click dots</span>
+        <span class="pgnum">Cover</span>
+      </div>
+    </section>
+
+    <!-- ================== 2. EXECUTIVE SUMMARY ================== -->
+    <section class="slide" data-slide="2" data-label="Executive Summary">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · Executive Summary</span></div>
+        <div class="right"><span>Source: grants_taxonomy.md §A–F</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="section-header">
+          <div class="left">
+            <div class="eyebrow">02 · Executive Summary</div>
+            <h2 class="section-title">A $12–18 M pilot can pull 5–10× in stacked grants, tax shields &amp; carbon revenue.</h2>
+          </div>
+          <div class="right">All numbers from Reimagine ME BD working file · verified against MPOB / MGTC / Verra / BCX public pages on 2026-09-21.</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="label">Direct grant + incentive stack</div>
+            <div class="value">RM 5–10<span class="unit">M</span></div>
+            <div class="desc">MPOB commercialisation + PEMACU 2.0 + GTFS 5.0 + SCORE tax shield, filed Q4 2026 – Q1 2027.</div>
+            <div class="src">§Summary</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Tax shield on CAPEX</div>
+            <div class="value">≈30<span class="unit">%</span></div>
+            <div class="desc">GITA 100% allowance + ITA Sarawak lagging region + SCORE pioneer status, stacked at commissioning.</div>
+            <div class="src">§B + §F</div>
+          </div>
+          <div class="kpi green">
+            <div class="label">Carbon credit revenue (recurring)</div>
+            <div class="value">USD 130k<span class="unit">/yr</span></div>
+            <div class="desc">21,500 tCO₂e/yr × $6/t Verra VMR0009 benchmark; 7-yr crediting + 25-yr permanence horizon.</div>
+            <div class="src">§C1</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Monitors live</div>
+            <div class="value">6<span class="unit">channels</span></div>
+            <div class="desc">SDB-MOSTI garispanduan + berita, MPOB main, MGTC GTFS, BCX, MIDA — firecrawl daily / weekly cadence.</div>
+            <div class="src">grant-watch.html</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Schemes surveyed</div>
+            <div class="value">38<span class="unit">rows</span></div>
+            <div class="desc">10 federal grants · 6 tax incentives · 6 carbon paths · 6 sustainable finance · 7 international · 5 state.</div>
+            <div class="src">§A · §B · §C · §D · §E · §F</div>
+          </div>
+          <div class="kpi green">
+            <div class="label">Next 30-day actions</div>
+            <div class="value">7<span class="unit">items</span></div>
+            <div class="desc">MPOB LOI draft · SWITCH-Asia subscribe · GTFS portal date · SCORE confirm · tax advisor · RE tariff · SALCRA link.</div>
+            <div class="src">Final page</div>
+          </div>
+        </div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">2 / 11</span>
+        <span class="label">The TL;DR every BD lead reads first</span>
+        <span class="pgnum">Executive Summary</span>
+      </div>
+    </section>
+
+    <!-- ================== 3. §A — FEDERAL GRANTS ================== -->
+    <section class="slide" data-slide="3" data-label="§A · Federal grants">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §A Federal Grants</span></div>
+        <div class="right"><span>MOSTI · MPOB · MGTC · EU · MITI</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§A</span>
+          <span class="text">10 federal grant mechanisms screened. Priority stack: <b style="color:var(--ink)">A5 → A1 → A7 → A6</b>.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Scheme</th>
+                <th>Agency</th>
+                <th class="num">Amount</th>
+                <th>Eligibility</th>
+                <th>Deadline</th>
+                <th class="num">Fit</th>
+                <th>Next action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="code">A1</td><td><b>Dana PEMACU 2.0 (TeD &amp; SRF)</b></td><td>MOSTI SDB</td><td class="num">RM 1–5 M matching</td><td>Malaysian SME, ≥51% local, pre-commercial R&amp;D</td><td>Rolling</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Apply via SDB before MVP CapEx commitment; SRF-RFP MY-CN angle for downstream partnership.</td></tr>
+              <tr><td class="code">A2</td><td><b>Strategik Request For Proposal (SRF-RFP MY-CN)</b></td><td>MOSTI SDB</td><td class="num">RM 500k–3 M</td><td>Joint MY-CN R&amp;D with Chinese partner</td><td>Calls 1–2×/yr</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Identify CN board-line / pMDI equipment partner.</td></tr>
+              <tr><td class="code">A3</td><td><b>RISE — Researcher Industry Scientific Exchange</b></td><td>MOSTI</td><td class="num">Salary co-fund</td><td>Industry hires PhD researcher</td><td>Rolling</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Hire 1 FRIM/UTM PhD for binder optimisation.</td></tr>
+              <tr><td class="code">A4</td><td><b>MOSP — Malaysia Open Science Platform</b></td><td>MOSTI</td><td class="num">Data + compute</td><td>All Malaysian researchers</td><td>Live</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Low priority — data infrastructure only.</td></tr>
+              <tr><td class="code">A5</td><td><b>MPOB Biomass Commercialisation Grant</b></td><td>MPOB</td><td class="num">RM 200k–2 M + profit share</td><td>Malaysian entity, MoA with MPOB, EFB/biomass downstream</td><td>Rolling calls</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>MoA already signed — activate grant pathway via MPOB HQ.</td></tr>
+              <tr><td class="code">A6</td><td><b>MPOB R&amp;D Grant</b></td><td>MPOB</td><td class="num">RM 100k–500k</td><td>Joint with GRI / IHL, oil palm downstream</td><td>Rolling</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Co-apply with FRIM (binder data exists).</td></tr>
+              <tr><td class="code">A7</td><td><b>GTFS 5.0 (Green Technology Financing Scheme)</b></td><td>MGTC + CGC</td><td class="num">60–80% gov guarantee</td><td>≥60% MY-owned, MGTC Green Project Certificate</td><td>2026–2030</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Apply for Green Project Certificate the day the M5 portal reopens.</td></tr>
+              <tr><td class="code">A8</td><td><b>SWITCH-Asia BIOMASS SP</b></td><td>EU</td><td class="num">EUR 50k–200k</td><td>Malaysian SME, biomass supply-chain sustainability</td><td>Periodic</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Subscribe to SWITCH-Asia newsletter; flag next call.</td></tr>
+              <tr><td class="code">A9</td><td><b>Oil Palm Mechanisation Fund 2025</b></td><td>MPOB</td><td class="num">60% CAPEX / RM 500k</td><td>Plantation side only</td><td>Live</td><td class="fit"><span class="fit-badge fit-1">1/5</span></td><td>Out of scope — mill/manufacturing, not estate.</td></tr>
+              <tr><td class="code">A10</td><td><b>MITI Industry4WRD Intervention Fund</b></td><td>MITI</td><td class="num">Up to RM 5 M</td><td>SMEs adopting IR4.0 in manufacturing</td><td>Live</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Re-tooling grant — applicable to UV-line + auto-saw.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway"><b>Action order:</b> A5 MPOB commercialisation (MoA signed, immediate) → A1 PEMACU 2.0 (file in parallel before MVP CapEx) → A7 GTFS 5.0 Green Cert (apply when portal reopens) → A6 MPOB R&amp;D (co-apply with FRIM).</div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">3 / 11</span>
+        <span class="label">10 federal grant mechanisms</span>
+        <span class="pgnum">§A Federal</span>
+      </div>
+    </section>
+
+    <!-- ================== 4. §B — TAX INCENTIVES ================== -->
+    <section class="slide" data-slide="4" data-label="§B · Tax incentives">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §B Tax Incentives</span></div>
+        <div class="right"><span>MIDA · MOF · Malaysia carbon tax 2026 (no biomass levy)</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§B</span>
+          <span class="text">6 incentive instruments. Priority stack: <b style="color:var(--ink)">B1 → B4 → B3 → B6</b>. Stackable until 70% statutory income is captured.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Scheme</th>
+                <th>Tax benefit</th>
+                <th>Eligibility</th>
+                <th>Deadline</th>
+                <th class="num">Fit</th>
+                <th>Next action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="code">B1</td><td><b>GITA — Green Investment Tax Allowance</b></td><td>100% allowance on qualifying CAPEX, offset 70% statutory income</td><td>Green tech project for own consumption</td><td>1 Jan 2024 – 31 Dec 2026</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Apply via MIDA before plant commissioning (2027); CAPEX ≈ USD 12–18 M.</td></tr>
+              <tr><td class="code">B2</td><td><b>GITE — Green Income Tax Exemption</b></td><td>70% statutory income exempt</td><td>MyHIJAU-listed green service provider</td><td>1 Jan 2024 – 31 Dec 2026</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Apply if Charles spins off green-tech consulting arm.</td></tr>
+              <tr><td class="code">B3</td><td><b>Pioneer Status (PSA)</b></td><td>70% statutory income exempt 5 yr</td><td>Manufacturing of promoted product / industry</td><td>Live</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Promoted product likely — wood / panel sector qualifies.</td></tr>
+              <tr><td class="code">B4</td><td><b>ITA — Investment Tax Allowance</b></td><td>60–100% allowance, offset 70–100% statutory income</td><td>Promoted activity in lagging / state region</td><td>Live</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Sarawak qualifies as lagging region — stack with B1.</td></tr>
+              <tr><td class="code">B5</td><td><b>Reinvestment Allowance (RA)</b></td><td>60% allowance, offset 70% statutory income</td><td>Manufacturing expansion (15 yr window)</td><td>Live</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Stage 2 plant expansion (60k → 120k m³).</td></tr>
+              <tr><td class="code">B6</td><td><b>Customs duty exemption</b></td><td>Import duty waived on machinery</td><td>Manufacturing project not yet producing</td><td>Live</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Apply for Dieffenbacher / sanding line import waiver.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway"><b>Stackability:</b> file B1 GITA at MPOB-grant filing time (Q4 2026), stack with B4 ITA on Sarawak lagging region. Use B3 PSA only if B1/B4 do not capture full benefit. B6 customs waiver is filed at the machinery PO stage.</div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">4 / 11</span>
+        <span class="label">6 tax instruments · MIDA / MOF</span>
+        <span class="pgnum">§B Tax</span>
+      </div>
+    </section>
+
+    <!-- ================== 5. §C — CARBON MONETISATION ================== -->
+    <section class="slide" data-slide="5" data-label="§C · Carbon monetisation">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §C Carbon Monetisation</span></div>
+        <div class="right"><span>Verra · BCX · UNFCCC Article 6.4 · CORSIA · MY carbon tax 2026</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§C</span>
+          <span class="text">6 monetisation pathways. Priority stack: <b style="color:var(--ink)">C1 → C2 → C6 → C3</b>. Verra VMR0009 is the load-bearing instrument.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Mechanism</th>
+                <th class="num">Price (USD/tCO₂e)</th>
+                <th>Volume</th>
+                <th>Lock-in</th>
+                <th class="num">Fit</th>
+                <th>Next action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="code">C1</td><td><b>Verra VCS + VMR0009 (avoided biomass open-burning)</b></td><td class="num">$4–8 (FCP-class)</td><td>1 tCO₂e per 1.4 tEFB (model assumed)</td><td>7-yr crediting + 25-yr permanence</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Already in cost model — register project, hire validator Q1 2027.</td></tr>
+              <tr><td class="code">C2</td><td><b>Bursa Carbon Exchange (BCX) auction</b></td><td class="num">Auction-cleared</td><td>Sell Verra-issued credits</td><td>Listing rules apply</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>List on BCX once Verra-registered; domestic MY buyers prefer local listing.</td></tr>
+              <tr><td class="code">C3</td><td><b>Article 6.4 (UNFCCC)</b></td><td class="num">$10–30 (compliance buyer)</td><td>2026 onwards</td><td>Sovereign-level MoU required</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Watch for MY-CN Article 6 MoU; co-benefit with SRF-RFP §A2.</td></tr>
+              <tr><td class="code">C4</td><td><b>CORSIA</b></td><td class="num">$5–15 (aviation)</td><td>Airline buyers</td><td>Bilateral contracts</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>AirAsia / Asia-Pacific airlines — opportunistic.</td></tr>
+              <tr><td class="code">C5</td><td><b>Malaysia carbon tax 2026 (iron / steel only)</b></td><td class="num">MYR 10–20/t → 2027 widening</td><td>None direct</td><td>Mandatory levy</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Indirect — creates downstream Verra demand from tax-paying steel mills.</td></tr>
+              <tr><td class="code">C6</td><td><b>Bilateral green premium (private)</b></td><td class="num">Negotiated, $8–25/t</td><td>Offtake-linked</td><td>Contract term</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Build into IKEA / Bunnings / AWI offtake — green-premium pricing.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="carbon-callout">
+          <div class="head">
+            <span class="label">Recurring revenue model</span>
+            <span class="val">USD 130k / yr</span>
+          </div>
+          <div class="formula">
+            60,000 m³/yr plant ≈ <b>30,000 tEFB/yr</b> avoided open-burn ≈ <b>21,500 tCO₂e/yr</b>.
+            At <b>$6/t</b> benchmark = <b>USD 130k/yr</b> recurring credit revenue.
+            7-yr crediting × 25-yr permanence horizon = long-tail cashflow.
+          </div>
+        </div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">5 / 11</span>
+        <span class="label">6 carbon monetisation pathways</span>
+        <span class="pgnum">§C Carbon</span>
+      </div>
+    </section>
+
+    <!-- ================== 6. §D — SUSTAINABLE FINANCE ================== -->
+    <section class="slide" data-slide="6" data-label="§D · Sustainable finance">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §D Sustainable Finance (Private)</span></div>
+        <div class="right"><span>Banks · SC · OEM · ADB · EU</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§D</span>
+          <span class="text">6 instruments. Priority stack: <b style="color:var(--ink)">D1 → D6 → D4</b>. SLL pricing is the lead wedge; vendor financing locks in CAPEX terms.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Instrument</th>
+                <th>Provider</th>
+                <th class="num">Tenor</th>
+                <th>Margin / return</th>
+                <th>Eligibility</th>
+                <th class="num">Fit</th>
+                <th>Next action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="code">D1</td><td><b>Sustainability-Linked Loan (SLL)</b></td><td>Maybank · CIMB · HSBC · SCB</td><td class="num">5–7 yr</td><td>Margin ratchet on ESG KPIs</td><td>Audited ESG scorecard</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Approached by RHB / CIMB — request SLL pricing vs current senior.</td></tr>
+              <tr><td class="code">D2</td><td><b>Green / SRI Sukuk</b></td><td>SC · CIMB · gov</td><td class="num">5–15 yr</td><td>Coupon + ESG covenants</td><td>SC + gov Sukuk framework</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Stage 2 plant (60k → 120k m³) — public market.</td></tr>
+              <tr><td class="code">D3</td><td><b>EU CBAM transition finance</b></td><td>EU buyers</td><td class="num">Offtake-linked</td><td>Premium pricing</td><td>EU exports</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>When EU exports mature — CBAM-driven pricing.</td></tr>
+              <tr><td class="code">D4</td><td><b>Concessional climate finance</b></td><td>GCF · ADB · World Bank</td><td class="num">10–15 yr</td><td>Sub-market coupon</td><td>Project meets climate criteria</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>MPOB connection → ADB Climate Action Fund.</td></tr>
+              <tr><td class="code">D5</td><td><b>Blue finance / nature bond</b></td><td>ADB · HSBC</td><td class="num">7–10 yr</td><td>Biodiversity premium</td><td>Nature-based solutions</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Carbon + biodiversity co-benefit angle.</td></tr>
+              <tr><td class="code">D6</td><td><b>Vendor financing (Dieffenbacher)</b></td><td>OEM</td><td class="num">3–5 yr</td><td>Tied to plant delivery</td><td>Equipment sale</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Negotiate alongside CAPEX term sheet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway"><b>Action order:</b> D1 SLL — request from RHB / CIMB with ESG scorecard → D6 Vendor financing — bundle with Dieffenbacher equipment → D4 Concessional climate finance — pursue via MPOB / ADB.</div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">6 / 11</span>
+        <span class="label">6 sustainable finance instruments</span>
+        <span class="pgnum">§D Sustainable Finance</span>
+      </div>
+    </section>
+
+    <!-- ================== 7. §E — INTERNATIONAL / DONOR FUNDS ================== -->
+    <section class="slide" data-slide="7" data-label="§E · International / donor funds">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §E International / Donor Funds</span></div>
+        <div class="right"><span>EU · GCF · ADB · GEF · ASEAN · UK · JP</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§E</span>
+          <span class="text">7 donor programmes. Priority stack: <b style="color:var(--ink)">E1 → E7 → E3</b>. Most returns here are co-benefits, not core cash.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Programme</th>
+                <th>Funder</th>
+                <th class="num">Amount</th>
+                <th>Eligibility</th>
+                <th>Status</th>
+                <th class="num">Fit</th>
+                <th>Next action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="code">E1</td><td><b>SWITCH-Asia BIOMASS SP</b></td><td>EU</td><td class="num">EUR 50k–200k</td><td>MY SME, biomass supply chain</td><td>Periodic</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Subscribe to newsletter; next call TBA.</td></tr>
+              <tr><td class="code">E2</td><td><b>GCF Readiness Malaysia</b></td><td>Green Climate Fund</td><td class="num">USD 1–5 M</td><td>Accredited entity partnership</td><td>MY-NDA active</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Indirect — applies if partner MPOB / KeTSA applies.</td></tr>
+              <tr><td class="code">E3</td><td><b>ADB Climate Action Fund</b></td><td>ADB</td><td class="num">USD 5–50 M</td><td>Sovereign / sub-sovereign</td><td>Periodic</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Approach via MPOB.</td></tr>
+              <tr><td class="code">E4</td><td><b>GEF-7 / GEF-8 Malaysia</b></td><td>GEF</td><td class="num">USD 1–10 M</td><td>Project-based</td><td>Country allocation</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Wait for MY-MoF call.</td></tr>
+              <tr><td class="code">E5</td><td><b>BIMP-EAGA cooperation fund</b></td><td>ASEAN</td><td class="num">USD 100k–1 M</td><td>Cross-border MY-ID-PH-Brunei</td><td>Rolling</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Cross-border EFB sourcing angle.</td></tr>
+              <tr><td class="code">E6</td><td><b>UK PACT</b></td><td>UK gov</td><td class="num">GBP 100k–2 M</td><td>Climate action partner</td><td>Selective</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Apply if Article 6 MY-UK MoU active.</td></tr>
+              <tr><td class="code">E7</td><td><b>JCM (Joint Crediting Mechanism) JP-MY</b></td><td>Japan gov</td><td class="num">Project-based</td><td>Tech-transfer model</td><td>Active</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Co-benefit with SRF-RFP MY-CN angle §A2.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway"><b>Action order:</b> E1 SWITCH-Asia — low effort, low return (stay subscribed) → E7 JCM JP-MY — bundle with Asia downstream strategy → E3 ADB Climate — pursue after MPOB green light.</div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">7 / 11</span>
+        <span class="label">7 international donor programmes</span>
+        <span class="pgnum">§E International</span>
+      </div>
+    </section>
+
+    <!-- ================== 8. §F — SARAWAK STATE INSTRUMENTS ================== -->
+    <section class="slide" data-slide="8" data-label="§F · Sarawak state instruments">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §F Sarawak State Instruments</span></div>
+        <div class="right"><span>SCORE · SEDC · Sarawak Energy · SLC · SDEC</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§F</span>
+          <span class="text">5 state-level instruments. Priority stack: <b style="color:var(--ink)">F1 → F3 → F2 → F4</b>. SCORE Bintulu status is the keystone.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Scheme</th>
+                <th>Agency</th>
+                <th>Amount</th>
+                <th>Eligibility</th>
+                <th class="num">Fit</th>
+                <th>Next action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="code">F1</td><td><b>SCORE tax incentives</b></td><td>Sarawak State</td><td>100% pioneer status + 5 yr exemption</td><td>SCORE-status manufacturer</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Reimagine ME Bintulu site already SCORE.</td></tr>
+              <tr><td class="code">F2</td><td><b>SEDC investment</b></td><td>Sarawak Economic Dev Corp</td><td>Equity / mezzanine</td><td>Sarawak-anchored project</td><td class="fit"><span class="fit-badge fit-4">4/5</span></td><td>Approach SEDC for coinvestment (5–15% stake).</td></tr>
+              <tr><td class="code">F3</td><td><b>Sarawak Energy RE tariff</b></td><td>Sarawak Energy</td><td>Subsidised hydropower tariff</td><td>Heavy industrial user</td><td class="fit"><span class="fit-badge fit-5">5/5</span></td><td>Confirm renewable energy tariff (carbon story).</td></tr>
+              <tr><td class="code">F4</td><td><b>Sarawak Land Customary Rights lease</b></td><td>SLC</td><td>Long-lease land</td><td>Native customary rights area</td><td class="fit"><span class="fit-badge fit-3">3/5</span></td><td>Verify SALCRA feedstock link; lease model.</td></tr>
+              <tr><td class="code">F5</td><td><b>Sarawak Digital Economy Corp grant</b></td><td>SDEC</td><td>RM 200k–1 M</td><td>IR4.0 / digital adoption</td><td class="fit"><span class="fit-badge fit-2">2/5</span></td><td>Optional — for Industry4WRD-related retrofits.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway"><b>Action order:</b> F1 SCORE tax — apply at MVP FID stage → F3 Sarawak Energy RE tariff — verify &amp; document in carbon model → F2 SEDC equity — pitch deck addendum for state coinvestment → F4 SALCRA lease — verify Charles connection.</div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">8 / 11</span>
+        <span class="label">5 Sarawak state instruments</span>
+        <span class="pgnum">§F Sarawak</span>
+      </div>
+    </section>
+
+    <!-- ================== 9. §SUMMARY — RECOMMENDED STACK ================== -->
+    <section class="slide" data-slide="9" data-label="§Summary · Recommended stack">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · §Summary Recommended Stack</span></div>
+        <div class="right"><span>For $12–18 M · 60,000 m³/yr · Sarawak pilot</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">§Summary</span>
+          <span class="text">7 live components plus 2 embedded. Total direct: <b style="color:var(--ink)">RM 5–10 M</b> + tax shield <b style="color:var(--ink)">≈30% CAPEX</b> + carbon revenue <b style="color:var(--ink)">USD 130k/yr</b>.</span>
+        </div>
+        <div class="sum-grid">
+          <div class="sum-card">
+            <div class="head"><span class="src">MPOB commercialisation grant</span><span class="amt">RM 1–2 M</span></div>
+            <div class="stg">Stage: Q4 2026 file</div>
+            <div class="owner">Owner: Alex + Charles</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">PEMACU 2.0</span><span class="amt">RM 1–5 M</span></div>
+            <div class="stg">Stage: Q1 2027 file</div>
+            <div class="owner">Owner: Alex</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">GTFS 5.0 Green Cert</span><span class="amt">Soft-loan guarantee</span></div>
+            <div class="stg">Stage: Q1 2027 apply</div>
+            <div class="owner">Owner: Charles</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">GITA (B1)</span><span class="amt">100% CAPEX allowance</span></div>
+            <div class="stg">Stage: At commissioning</div>
+            <div class="owner">Owner: Tax advisor</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">Customs duty waiver (B6)</span><span class="amt">All Dieffenbacher imports</span></div>
+            <div class="stg">Stage: At PO</div>
+            <div class="owner">Owner: Procurement</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">SCORE (F1)</span><span class="amt">100% pioneer + 5 yr</span></div>
+            <div class="stg">Stage: At FID</div>
+            <div class="owner">Owner: Charles + SEDC</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">Sarawak Energy RE tariff (F3)</span><span class="amt">Embedded</span></div>
+            <div class="stg">Stage: At commissioning</div>
+            <div class="owner">Owner: Plant eng</div>
+          </div>
+          <div class="sum-card">
+            <div class="head"><span class="src">ITA lagging region (B4)</span><span class="amt">60–100%</span></div>
+            <div class="stg">Stage: At commissioning · stack with B1</div>
+            <div class="owner">Owner: Tax advisor</div>
+          </div>
+          <div class="sum-total">
+            <div class="left">
+              <div class="label">Total potential direct grant + incentive</div>
+              <div class="big">RM 5–10 M</div>
+              <div class="small">Tax shield ≈ 30% of CAPEX · Carbon revenue USD 130k/yr recurring</div>
+            </div>
+            <div class="right">2026 → 2027</div>
+          </div>
+        </div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">9 / 11</span>
+        <span class="label">Recommended stack for $12–18 M pilot</span>
+        <span class="pgnum">§Summary</span>
+      </div>
+    </section>
+
+    <!-- ================== 10. MONITOR FILE MAPPING ================== -->
+    <section class="slide" data-slide="10" data-label="Monitor file mapping">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · Monitor File Mapping</span></div>
+        <div class="right"><span>Live via grant-watch.html · firecrawl cadence</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">Monitors</span>
+          <span class="text">Each row = one firecrawl monitor watching an agency URL and routing alerts to a taxonomy section. All URLs below were verified on 2026-09-21.</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Monitor ID</th>
+                <th>URL</th>
+                <th>Cadence</th>
+                <th>Sources covered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="monitor-id">SDB-MOSTI-garispanduan</td>
+                <td><a href="https://sdb.mosti.gov.my/sdbcms/garispanduan/" target="_blank" rel="noopener">sdb.mosti.gov.my/sdbcms/garispanduan/</a></td>
+                <td>Daily 09:00 MYT</td>
+                <td class="monitor-sources"><code>A1</code><code>A2</code></td>
+              </tr>
+              <tr>
+                <td class="monitor-id">SDB-MOSTI-berita</td>
+                <td><a href="https://sdb.mosti.gov.my/sdbcms/berita/" target="_blank" rel="noopener">sdb.mosti.gov.my/sdbcms/berita/</a></td>
+                <td>Daily 09:05 MYT</td>
+                <td class="monitor-sources"><code>All MOSTI news</code></td>
+              </tr>
+              <tr>
+                <td class="monitor-id">MPOB-main</td>
+                <td><a href="https://mpob.gov.my/" target="_blank" rel="noopener">mpob.gov.my/</a></td>
+                <td>Daily 09:10 MYT</td>
+                <td class="monitor-sources"><code>A5</code><code>A6</code><code>A9</code></td>
+              </tr>
+              <tr>
+                <td class="monitor-id">MGTC-GTFS</td>
+                <td><a href="https://www.mgtc.gov.my/services/green-technology-financing-scheme-gtfs/" target="_blank" rel="noopener">mgtc.gov.my/services/green-technology-financing-scheme-gtfs/</a></td>
+                <td>Daily 09:15 MYT</td>
+                <td class="monitor-sources"><code>A7</code></td>
+              </tr>
+              <tr>
+                <td class="monitor-id">BCX-Bursa-Carbon</td>
+                <td><a href="https://bcx.bursamalaysia.com/products.html" target="_blank" rel="noopener">bcx.bursamalaysia.com/products.html</a></td>
+                <td>Weekly Mon 09:20</td>
+                <td class="monitor-sources"><code>C1</code><code>C2</code><code>C5</code></td>
+              </tr>
+              <tr>
+                <td class="monitor-id">MIDA-Palm-Biomass</td>
+                <td><a href="https://www.mida.gov.my/" target="_blank" rel="noopener">mida.gov.my/</a></td>
+                <td>Weekly Mon 09:25</td>
+                <td class="monitor-sources"><code>B1</code><code>B2</code><code>B3</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="takeaway"><b>Operational note:</b> if any monitor returns a 4xx/5xx for 3 consecutive runs, the BD owner flips it to manual-weekly until the agency portal is reachable. MPOB and SDB SDB pages are the highest-priority feeds because they hold the gates to A5 and A1 grant timing.</div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">10 / 11</span>
+        <span class="label">6 live monitors · all URLs verified 2026-09-21</span>
+        <span class="pgnum">Monitors</span>
+      </div>
+    </section>
+
+    <!-- ================== 11. NEXT 30-DAY ACTION CHECKLIST ================== -->
+    <section class="slide" data-slide="11" data-label="Next 30-day action checklist">
+      <div class="chrome-top">
+        <div class="left"><span class="dot"></span><span>Lucky Board · Next 30-day Action Checklist</span></div>
+        <div class="right"><span>Owner · deadline · follow-up</span></div>
+      </div>
+      <div class="slide-fill">
+        <div class="banner-strip">
+          <span class="pill">Action</span>
+          <span class="text">7 items. Anything not checked off by 2026-10-21 must be re-classified — do not let stale open tasks rot in this list.</span>
+        </div>
+        <div class="split-50-50">
+          <div class="col gap-2">
+            <div class="check">
+              <div class="box">1</div>
+              <div class="body">
+                <div class="title">File MPOB commercialisation grant (A5) — draft Letter of Intent</div>
+                <div class="detail">MoA already signed; LOI is the formal unlock. Without it the MPOB HQ pathway stays dormant.</div>
+                <div class="owner">Owner · Alex + Charles</div>
+              </div>
+            </div>
+            <div class="check">
+              <div class="box">2</div>
+              <div class="body">
+                <div class="title">Subscribe SWITCH-Asia BIOMASS SP (E1) newsletter</div>
+                <div class="detail">Low effort, low return — but missing a call window because nobody is on the list is an unforced error.</div>
+                <div class="owner">Owner · BD ops</div>
+              </div>
+            </div>
+            <div class="check">
+              <div class="box">3</div>
+              <div class="body">
+                <div class="title">Confirm GTFS 5.0 portal opening date via MGTC</div>
+                <div class="detail">The Green Project Certificate is the gating artefact for the GTFS 5.0 guarantee. The day the M5 portal reopens we file same-day.</div>
+                <div class="owner">Owner · Charles</div>
+              </div>
+            </div>
+            <div class="check">
+              <div class="box">4</div>
+              <div class="body">
+                <div class="title">Verify SCORE status of Bintulu site (F1)</div>
+                <div class="detail">Already assumed SCORE-status from the site-scout memo. Get the certificate in hand so the tax filing has documentary support.</div>
+                <div class="owner">Owner · Charles + SEDC</div>
+              </div>
+            </div>
+          </div>
+          <div class="col gap-2">
+            <div class="check">
+              <div class="box">5</div>
+              <div class="body">
+                <div class="title">Engage tax advisor on GITA B1 + ITA B4 + SCORE F1 stack</div>
+                <div class="detail">Confirm stacking is legal (no double-dipping on the same CAPEX line) and quantify the 30% tax-shield figure for the pitch deck.</div>
+                <div class="owner">Owner · BD + external tax counsel</div>
+              </div>
+            </div>
+            <div class="check">
+              <div class="box">6</div>
+              <div class="body">
+                <div class="title">Verify Sarawak Energy renewable tariff (F3) — carbon model input</div>
+                <div class="detail">RE tariff is the single biggest input to the EFB carbon intensity number. Lock it in writing before the Verra validation begins.</div>
+                <div class="owner">Owner · Plant eng</div>
+              </div>
+            </div>
+            <div class="check">
+              <div class="box">7</div>
+              <div class="body">
+                <div class="title">Confirm Charles / SALCRA connection (F4 feedstock lease)</div>
+                <div class="detail">If confirmed, the long-lease land model unlocks a longer CAPEX-amortisation case in the BD materials. If not confirmed, drop F4 from the active list.</div>
+                <div class="owner">Owner · Charles</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chrome-bottom">
+        <span class="label">11 / 11</span>
+        <span class="label">7 actions · close by 2026-10-21</span>
+        <span class="pgnum">Action Checklist</span>
+      </div>
+    </section>
+
+  </div><!-- /.viewport -->
+
+  <!-- Navigation arrows (bottom corners) -->
+  <button class="arrow prev" id="prevBtn" aria-label="Previous slide">&#8249;</button>
+  <button class="arrow first" id="firstBtn" aria-label="First slide">&#171;</button>
+  <button class="arrow last" id="lastBtn" aria-label="Last slide">&#187;</button>
+  <button class="arrow next" id="nextBtn" aria-label="Next slide">&#8250;</button>
+
+  <!-- Dots -->
+  <div class="dots" id="dots"></div>
+
+</div><!-- /.stage -->
+</div><!-- /.stage-wrap -->
+
+<script>
+(function(){
+  'use strict';
+
+  // ---- 1. Scale (fit viewport) ----
+  var stage = document.getElementById('stage');
+  function fit(){
+    var vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    // Mobile phones: skip scale (CSS already handles width-fill reading mode)
+    if (vw <= 820 || vh <= 500){
+      document.documentElement.style.setProperty('--s','1');
+      stage.style.transform = 'none';
+      return;
+    }
+    var s = Math.min(vw/1920, vh/1080);
+    document.documentElement.style.setProperty('--s', s);
+    stage.style.transform = 'scale('+s+')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', fit);
+
+  // ---- 2. Viewport + slides ----
+  var vp = document.getElementById('viewport');
+  var slides = Array.prototype.slice.call(vp.querySelectorAll('.slide'));
+  var total = slides.length;
+
+  // ---- 3. Dot strip ----
+  var dotsEl = document.getElementById('dots');
+  for (var i=0;i<total;i++){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', 'Go to slide '+(i+1));
+    b.dataset.idx = i;
+    if (i===0) b.classList.add('active');
+    (function(idx){
+      b.addEventListener('click', function(){ goTo(idx); });
+    })(i);
+    dotsEl.appendChild(b);
+  }
+
+  // ---- 4. Active slide tracking ----
+  var progressBar = document.getElementById('progressBar');
+  var currentIdx = 0;
+
+  function updateActive(idx){
+    currentIdx = idx;
+    var btns = dotsEl.querySelectorAll('button');
+    for (var i=0;i<btns.length;i++){
+      btns[i].classList.toggle('active', i===idx);
+    }
+    // Progress bar
+    var pct = total>1 ? Math.round((idx/(total-1))*100) : 0;
+    progressBar.style.width = pct + '%';
+    document.documentElement.style.setProperty('--p', pct+'%');
+    // Footer counters in each slide
+    slides.forEach(function(s, i){
+      var pn = s.querySelector('.chrome-bottom .pgnum');
+      var lb = s.querySelector('.chrome-bottom .label');
+      if (pn) pn.textContent = s.dataset.label || ('Slide '+(i+1));
+      if (lb) {
+        // Update left "X / total" marker
+        var txt = (i+1) + ' / ' + total;
+        // Preserve any descriptive label after the slash
+        var oldLabel = lb.textContent || '';
+        // The label currently reads e.g. "Use ← → · Home / End · F · or click dots" — replace
+        lb.textContent = (i+1) + ' / ' + total + '  ·  ' + (s.dataset.label || '');
+      }
+    });
+  }
+
+  // ---- 5. goTo ----
+  function isReadingMode(){
+    return window.innerWidth <= 820 || window.innerHeight <= 500;
+  }
+  function goTo(idx){
+    if (idx<0) idx = 0;
+    if (idx>total-1) idx = total-1;
+    var target = slides[idx];
+    if (!target) return;
+    if (isReadingMode()){
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      // Use scrollLeft on the viewport container (real horizontal scroll, not transform)
+      vp.scrollTo({left: target.offsetLeft, behavior: 'smooth'});
+    }
+    updateActive(idx);
+  }
+
+  // ---- 6. Sync active slide with scroll position ----
+  var scrollTimer = null;
+  function syncFromScroll(){
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function(){
+      var idx;
+      if (isReadingMode()){
+        var y = window.scrollY || window.pageYOffset;
+        idx = 0;
+        for (var i=0;i<slides.length;i++){
+          if (slides[i].offsetTop - 80 <= y) idx = i;
+        }
+      } else {
+        var sl = vp.scrollLeft;
+        var w = slides[0].offsetWidth;
+        idx = Math.round(sl / w);
+      }
+      if (idx !== currentIdx) updateActive(idx);
+    }, 60);
+  }
+  vp.addEventListener('scroll', syncFromScroll);
+  window.addEventListener('scroll', syncFromScroll);
+
+  // ---- 7. Buttons ----
+  document.getElementById('prevBtn').addEventListener('click', function(){ goTo(currentIdx-1); });
+  document.getElementById('nextBtn').addEventListener('click', function(){ goTo(currentIdx+1); });
+  document.getElementById('firstBtn').addEventListener('click', function(){ goTo(0); });
+  document.getElementById('lastBtn').addEventListener('click', function(){ goTo(total-1); });
+
+  // ---- 8. Keyboard ----
+  window.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown') { e.preventDefault(); goTo(currentIdx+1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); goTo(currentIdx-1); }
+    else if (k === 'Home') { e.preventDefault(); goTo(0); }
+    else if (k === 'End') { e.preventDefault(); goTo(total-1); }
+    else if (k === 'f' || k === 'F') { e.preventDefault(); goTo(currentIdx+1); }
+  });
+
+  // ---- 9. Mouse wheel (vertical → horizontal) ----
+  vp.addEventListener('wheel', function(e){
+    // Mobile / passive listeners: respect vertical-only wheels when reading-mode is on
+    if (window.innerWidth <= 820 || window.innerHeight <= 500) return;
+    // Translate any vertical delta into horizontal scroll
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      vp.scrollLeft += e.deltaY;
+    }
+  }, {passive:false});
+
+  // ---- 10. Click-drag to pan (desktop only) ----
+  var isDown = false, startX = 0, startScroll = 0, dragged = false;
+  vp.addEventListener('pointerdown', function(e){
+    // Skip manual drag on touch — let native momentum handle
+    if (e.pointerType === 'touch') return;
+    // Skip in vertical reading mode
+    if (isReadingMode()) return;
+    // Skip if clicking a link / button / dot
+    if (e.target.closest('a,button')) return;
+    isDown = true; dragged = false;
+    startX = e.clientX;
+    startScroll = vp.scrollLeft;
+    vp.setPointerCapture(e.pointerId);
+    vp.style.cursor = 'grabbing';
+  });
+  vp.addEventListener('pointermove', function(e){
+    if (!isDown) return;
+    var d = e.clientX - startX;
+    if (Math.abs(d) > 4) dragged = true;
+    vp.scrollLeft = startScroll - d;
+  });
+  vp.addEventListener('pointerup', function(e){
+    if (!isDown) return;
+    isDown = false;
+    vp.style.cursor = '';
+    try { vp.releasePointerCapture(e.pointerId); } catch(_){}
+  });
+  vp.addEventListener('pointercancel', function(){ isDown = false; vp.style.cursor=''; });
+  // Suppress click after drag
+  vp.addEventListener('click', function(e){
+    if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; }
+  }, true);
+
+  // ---- 11. Initial state ----
+  updateActive(0);
+
+  // ---- 12. After fonts settle, snap to first ----
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function(){ vp.scrollLeft = 0; updateActive(0); });
+  }
+
+  // ---- 13. Touch action: pan-x pinch-zoom on the viewport (desktop browsers too) ----
+  vp.style.touchAction = 'pan-x pinch-zoom';
+
+})();
+</script>
+</body>
+</html>
